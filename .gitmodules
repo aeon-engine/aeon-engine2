@@ -1,0 +1,8 @@
+[submodule "dep/cmake"]
+	path = dep/cmake
+	url = ../../aeon-engine/libaeon-cmake.git
+	branch = master
+[submodule "dep/libaeon"]
+	path = dep/libaeon
+	url = ../../aeon-engine/libaeon.git
+	branch = master

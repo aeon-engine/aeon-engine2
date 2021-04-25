@@ -3,7 +3,7 @@
 #pragma once
 
 #include <aeon/engine/rhi/rhi_plugin.h>
-#include <aeon/rhi/export.h>
+#include <aeon/engine/rhi/export.h>
 #include <aeon/plugins/plugin_loader.h>
 
 namespace aeon::engine::rhi

@@ -1,13 +1,23 @@
 // Distributed under the BSD 2-Clause License - Copyright 2019-2021 Robin Degen
 
-#include <aeon/resources/mesh_data.h>
+#include <aeon/engine/resources/mesh_data.h>
 
-namespace aeon::resources
+namespace aeon::engine::resources
 {
 
-mesh_data::mesh_data(std::vector<vertex_type> vertices, std::vector<index_type> indices) noexcept
-    : vertices_{std::move(vertices)}
+mesh_data::mesh_data(std::vector<vertex_type> vertices, std::vector<index_type> indices, const resource_id material_id) noexcept
+    : resource_data{}
+    , vertices_{std::move(vertices)}
     , indices_{std::move(indices)}
+    , material_id_{material_id}
+{
+}
+
+mesh_data::mesh_data(const resource_id id, std::vector<vertex_type> vertices, std::vector<index_type> indices, const resource_id material_id) noexcept
+    : resource_data{id}
+    , vertices_{std::move(vertices)}
+    , indices_{std::move(indices)}
+    , material_id_{material_id}
 {
 }
 
@@ -23,4 +33,14 @@ auto mesh_data::indices() const noexcept -> const std::vector<index_type> &
     return indices_;
 }
 
-} // namespace aeon::resources
+auto mesh_data::material_id() const noexcept -> const resource_id &
+{
+    return material_id_;
+}
+
+auto mesh_data::dependencies() const noexcept -> std::vector<resource_id>
+{
+    return {material_id_};
+}
+
+} // namespace aeon::engine::resources

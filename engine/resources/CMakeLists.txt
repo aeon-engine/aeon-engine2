@@ -5,14 +5,16 @@ include(GenerateExportHeader)
 set(SOURCES
     private/material_data.cpp
     private/mesh_data.cpp
+    private/resource_data.cpp
     private/scene_data.cpp
     private/scene_prefab_data.cpp
     private/texture_data.cpp
-    public/aeon/resources/material_data.h
-    public/aeon/resources/mesh_data.h
-    public/aeon/resources/scene_data.h
-    public/aeon/resources/scene_prefab_data.h
-    public/aeon/resources/texture_data.h
+    public/aeon/engine/resources/material_data.h
+    public/aeon/engine/resources/mesh_data.h
+    public/aeon/engine/resources/resource_data.h
+    public/aeon/engine/resources/scene_data.h
+    public/aeon/engine/resources/scene_prefab_data.h
+    public/aeon/engine/resources/texture_data.h
 )
 
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${SOURCES})
@@ -22,7 +24,7 @@ add_library(aeon_engine_resources SHARED
 )
 
 generate_export_header(aeon_engine_resources
-    EXPORT_FILE_NAME public/aeon/resources/export.h
+    EXPORT_FILE_NAME public/aeon/engine/resources/export.h
 )
 
 set_target_properties(aeon_engine_resources PROPERTIES
@@ -40,7 +42,7 @@ target_include_directories(aeon_engine_resources
 
 target_link_libraries(aeon_engine_resources
     PUBLIC
-        aeon_math
+        aeon_engine_common
 )
 
 install(

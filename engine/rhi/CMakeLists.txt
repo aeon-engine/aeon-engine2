@@ -33,7 +33,7 @@ add_library(aeon_engine_rhi SHARED
 )
 
 generate_export_header(aeon_engine_rhi
-    EXPORT_FILE_NAME public/aeon/rhi/export.h
+    EXPORT_FILE_NAME public/aeon/engine/rhi/export.h
 )
 
 set_target_properties(aeon_engine_rhi PROPERTIES

@@ -6,11 +6,11 @@
 #include "dx11_rhi_bound_shader_state.h"
 #include "dx11_rhi_depth_stencil_state.h"
 #include "dx11_rhi_rasterizer_state.h"
-#include <aeon/rhi/graphics_pipeline_state.h>
+#include <aeon/engine/rhi/graphics_pipeline_state.h>
 #include <d3d11.h>
 #include <wrl/client.h>
 
-namespace aeon::rhi::dx11
+namespace aeon::engine::rhi::dx11
 {
 
 class dx11_rhi_graphics_pipeline_state final : public graphics_pipeline_state
@@ -54,10 +54,10 @@ public:
         return depth_stencil_state.get();
     }
 
-    common::intrusive_ptr<dx11_rhi_bound_shader_state> bound_shader_state;
-    common::intrusive_ptr<dx11_rhi_blend_state> blend_state;
-    common::intrusive_ptr<dx11_rhi_rasterizer_state> rasterizer_state;
-    common::intrusive_ptr<dx11_rhi_depth_stencil_state> depth_stencil_state;
+    aeon::common::intrusive_ptr<dx11_rhi_bound_shader_state> bound_shader_state;
+    aeon::common::intrusive_ptr<dx11_rhi_blend_state> blend_state;
+    aeon::common::intrusive_ptr<dx11_rhi_rasterizer_state> rasterizer_state;
+    aeon::common::intrusive_ptr<dx11_rhi_depth_stencil_state> depth_stencil_state;
 
 private:
     [[nodiscard]] auto native_impl_internal() noexcept -> void * final
@@ -66,4 +66,4 @@ private:
     }
 };
 
-} // namespace aeon::rhi::dx11
+} // namespace aeon::engine::rhi::dx11

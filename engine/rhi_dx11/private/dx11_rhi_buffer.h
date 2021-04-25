@@ -2,11 +2,11 @@
 
 #pragma once
 
-#include <aeon/rhi/buffer.h>
+#include <aeon/engine/rhi/buffer.h>
 #include <d3d11.h>
 #include <wrl/client.h>
 
-namespace aeon::rhi::dx11
+namespace aeon::engine::rhi::dx11
 {
 
 template <typename BaseT>
@@ -100,4 +100,4 @@ private:
     }
 };
 
-} // namespace aeon::rhi::dx11
+} // namespace aeon::engine::rhi::dx11

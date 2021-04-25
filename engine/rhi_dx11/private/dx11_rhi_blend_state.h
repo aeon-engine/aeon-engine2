@@ -2,11 +2,11 @@
 
 #pragma once
 
-#include <aeon/rhi/blend_state.h>
+#include <aeon/engine/rhi/blend_state.h>
 #include <d3d11.h>
 #include <wrl/client.h>
 
-namespace aeon::rhi::dx11
+namespace aeon::engine::rhi::dx11
 {
 
 class dx11_rhi_blend_state final : public blend_state
@@ -34,4 +34,4 @@ private:
     }
 };
 
-} // namespace aeon::rhi::dx11
+} // namespace aeon::engine::rhi::dx11

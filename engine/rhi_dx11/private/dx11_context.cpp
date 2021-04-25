@@ -12,7 +12,7 @@
 #include "checked_hresult.h"
 #include <aeon/common/assert.h>
 
-namespace aeon::rhi::dx11
+namespace aeon::engine::rhi::dx11
 {
 
 dx11_context::dx11_context(dx11_device &device, ID3D11DeviceContext *context) noexcept
@@ -29,7 +29,7 @@ void dx11_context::set_vertex_buffer(vertex_buffer &buffer, const std::uint32_t 
     context_->IASetVertexBuffers(slot, 1, &d3d_buffer, &stride, &offset);
 }
 
-void dx11_context::set_index_buffer(index_buffer &buffer, const format format, const std::uint32_t offset)
+void dx11_context::set_index_buffer(index_buffer &buffer, const common::format format, const std::uint32_t offset)
 {
     context_->IASetIndexBuffer(buffer.native_impl<dx11_rhi_index_buffer>()->buffer.Get(), convert_format(format), offset);
 }
@@ -195,4 +195,4 @@ void *dx11_context::map(ID3D11Resource *resource, const std::uint32_t sub_resour
     return mapped_resource.pData;
 }
 
-} // namespace aeon::rhi::dx11
+} // namespace aeon::engine::rhi::dx11

@@ -1,4 +1,4 @@
-# Distributed under the BSD 2-Clause License - Copyright 2019 Robin Degen
+# Distributed under the BSD 2-Clause License - Copyright 2021 Robin Degen
 
 cmake_minimum_required(VERSION 3.13)
 
@@ -44,9 +44,6 @@ enable_component(platform)
 set(AEON_ENABLE_TESTING ON CACHE BOOL "")
 
 ################################################################################
-
-# TODO: This is needed for the spir-v compiler; which should be part of the engine sources instead
-find_package(LunarGVulkanSDK)
 
 add_subdirectory(dep)
 add_subdirectory(engine)

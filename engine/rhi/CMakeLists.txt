@@ -1,32 +1,29 @@
-# Distributed under the BSD 2-Clause License - Copyright 2019 Robin Degen
+# Distributed under the BSD 2-Clause License - Copyright 2021 Robin Degen
 
 include(GenerateExportHeader)
 
 set(SOURCES
-    private/resource.cpp
     private/rhi.cpp
-    public/aeon/rhi/blend_state.h
-    public/aeon/rhi/bound_shader_state.h
-    public/aeon/rhi/buffer.h
-    public/aeon/rhi/context.h
-    public/aeon/rhi/depth_stencil_state.h
-    public/aeon/rhi/device.h
-    public/aeon/rhi/filter_type.h
-    public/aeon/rhi/format.h
-    public/aeon/rhi/graphics_pipeline_state.h
-    public/aeon/rhi/input_layout_description.h
-    public/aeon/rhi/primitive_topology.h
-    public/aeon/rhi/rasterizer_state.h
-    public/aeon/rhi/resource.h
-    public/aeon/rhi/resource_data.h
-    public/aeon/rhi/rhi.h
-    public/aeon/rhi/rhi_plugin.h
-    public/aeon/rhi/sampler_state.h
-    public/aeon/rhi/shader.h
-    public/aeon/rhi/shader_resource_view.h
-    public/aeon/rhi/texture.h
-    public/aeon/rhi/viewport.h
-    public/aeon/rhi/wrap_mode.h
+    public/aeon/engine/rhi/blend_state.h
+    public/aeon/engine/rhi/bound_shader_state.h
+    public/aeon/engine/rhi/buffer.h
+    public/aeon/engine/rhi/context.h
+    public/aeon/engine/rhi/depth_stencil_state.h
+    public/aeon/engine/rhi/device.h
+    public/aeon/engine/rhi/graphics_pipeline_state.h
+    public/aeon/engine/rhi/input_layout_description.h
+    public/aeon/engine/rhi/primitive_topology.h
+    public/aeon/engine/rhi/rasterizer_state.h
+    public/aeon/engine/rhi/resource.h
+    public/aeon/engine/rhi/resource_data.h
+    public/aeon/engine/rhi/rhi.h
+    public/aeon/engine/rhi/rhi_plugin.h
+    public/aeon/engine/rhi/sampler_state.h
+    public/aeon/engine/rhi/shader.h
+    public/aeon/engine/rhi/shader_resource_view.h
+    public/aeon/engine/rhi/texture.h
+    public/aeon/engine/rhi/viewport.h
+    public/aeon/engine/rhi/wrap_mode.h
 )
 
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${SOURCES})
@@ -53,12 +50,15 @@ target_include_directories(aeon_engine_rhi
 )
 
 target_link_libraries(aeon_engine_rhi
-    aeon_common
-    aeon_imaging
-    aeon_math
-    aeon_plugins
-    aeon_streams
-    aeon_platform
+    PUBLIC
+        aeon_engine_common
+        aeon_platform
+        aeon_math
+        aeon_imaging
+        aeon_plugins
+    PRIVATE
+        aeon_common
+        aeon_streams
 )
 
 install(
@@ -67,5 +67,3 @@ install(
     LIBRARY DESTINATION lib
     ARCHIVE DESTINATION lib
 )
-
-add_subdirectory(tests)

@@ -2,11 +2,11 @@
 
 #pragma once
 
-#include <aeon/rhi/sampler_state.h>
+#include <aeon/engine/rhi/sampler_state.h>
 #include <d3d11.h>
 #include <wrl/client.h>
 
-namespace aeon::rhi::dx11
+namespace aeon::engine::rhi::dx11
 {
 
 class dx11_rhi_sampler_state final : public sampler_state
@@ -35,4 +35,4 @@ private:
     }
 };
 
-} // namespace aeon::rhi::dx11
+} // namespace aeon::engine::rhi::dx11

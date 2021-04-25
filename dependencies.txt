@@ -1,3 +1,4 @@
 # Copyright (c) 2012-2019 Robin Degen
 
 #name version
+assimp Release3.1_RC1-8054-gcd42b995

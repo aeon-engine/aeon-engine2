@@ -2,12 +2,12 @@
 
 #pragma once
 
-#include <aeon/rhi/shader.h>
+#include <aeon/engine/rhi/shader.h>
 #include <d3d11.h>
 #include <wrl/client.h>
 #include <span>
 
-namespace aeon::rhi::dx11
+namespace aeon::engine::rhi::dx11
 {
 
 template <typename dx_type, typename rhi_type>
@@ -43,4 +43,4 @@ private:
 using dx11_rhi_vertex_shader = dx11_rhi_shader_base<ID3D11VertexShader, vertex_shader>;
 using dx11_rhi_pixel_shader = dx11_rhi_shader_base<ID3D11PixelShader, pixel_shader>;
 
-} // namespace aeon::rhi::dx11
+} // namespace aeon::engine::rhi::dx11

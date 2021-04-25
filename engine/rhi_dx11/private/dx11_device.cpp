@@ -16,13 +16,13 @@
 #include <aeon/platform/native_handles.h>
 #include <vector>
 
-namespace aeon::rhi::dx11
+namespace aeon::engine::rhi::dx11
 {
 
 namespace internal
 {
 
-[[nodiscard]] auto create_buffer(ID3D11Device *device, const resource_data &initial_data, const usage usage, const D3D11_BIND_FLAG bind_flags, const common::flags<cpu_access> cpu_access_flags)
+[[nodiscard]] auto create_buffer(ID3D11Device *device, const resource_data &initial_data, const usage usage, const D3D11_BIND_FLAG bind_flags, const aeon::common::flags<cpu_access> cpu_access_flags)
 {
     D3D11_BUFFER_DESC buffer_description{};
     buffer_description.Usage = convert_usage(usage);
@@ -174,9 +174,9 @@ void dx11_device::shutdown()
     checked_hresult{swap_chain_->SetFullscreenState(false, nullptr)};
 }
 
-void dx11_device::clear_back_buffer(const common::color_rgba_f &clear_color)
+void dx11_device::clear_back_buffer(const aeon::common::color_rgba_f &clear_color)
 {
-    immediate_context_->ClearRenderTargetView(render_target_view_.Get(), common::ptr(clear_color));
+    immediate_context_->ClearRenderTargetView(render_target_view_.Get(), ptr(clear_color));
 }
 
 void dx11_device::clear_depth_stencil_buffer(const float depth, const int stencil)
@@ -206,7 +206,7 @@ auto dx11_device::create_blend_state(const blend_state_initializer &initializer)
 
     ID3D11BlendState *blend_state;
     checked_hresult{device_->CreateBlendState(&blend_description, &blend_state)};
-    return common::make_intrusive_ptr<dx11_rhi_blend_state>(blend_state);
+    return aeon::common::make_intrusive_ptr<dx11_rhi_blend_state>(blend_state);
 }
 
 auto dx11_device::create_rasterizer_state(const rasterizer_state_initializer &initializer) -> rasterizer_state_ref
@@ -225,7 +225,7 @@ auto dx11_device::create_rasterizer_state(const rasterizer_state_initializer &in
 
     ID3D11RasterizerState *d3d11_state;
     checked_hresult{device_->CreateRasterizerState(&raster_description, &d3d11_state)};
-    return common::make_intrusive_ptr<dx11_rhi_rasterizer_state>(d3d11_state);
+    return aeon::common::make_intrusive_ptr<dx11_rhi_rasterizer_state>(d3d11_state);
 }
 
 auto dx11_device::create_depth_stencil_state(const depth_stencil_state_initializer &initializer) -> depth_stencil_state_ref
@@ -250,42 +250,42 @@ auto dx11_device::create_depth_stencil_state(const depth_stencil_state_initializ
 
     ID3D11DepthStencilState *state;
     checked_hresult{device_->CreateDepthStencilState(&description, &state)};
-    return common::make_intrusive_ptr<dx11_rhi_depth_stencil_state>(state);
+    return aeon::common::make_intrusive_ptr<dx11_rhi_depth_stencil_state>(state);
 }
 
 auto dx11_device::create_vertex_shader(const std::span<const std::byte> &data) -> vertex_shader_ref
 {
     ID3D11VertexShader *shader;
     checked_hresult{device_->CreateVertexShader(std::data(data), std::size(data), nullptr, &shader)};
-    return common::make_intrusive_ptr<dx11_rhi_vertex_shader>(shader, data);
+    return aeon::common::make_intrusive_ptr<dx11_rhi_vertex_shader>(shader, data);
 }
 
 auto dx11_device::create_pixel_shader(const std::span<const std::byte> &data) -> pixel_shader_ref
 {
     ID3D11PixelShader *shader;
     checked_hresult{device_->CreatePixelShader(std::data(data), std::size(data), nullptr, &shader)};
-    return common::make_intrusive_ptr<dx11_rhi_pixel_shader>(shader, data);
+    return aeon::common::make_intrusive_ptr<dx11_rhi_pixel_shader>(shader, data);
 }
 
-auto dx11_device::create_vertex_buffer(const resource_data initial_data, const usage usage, const common::flags<cpu_access> cpu_access_flags) -> vertex_buffer_ref
+auto dx11_device::create_vertex_buffer(const resource_data initial_data, const usage usage, const aeon::common::flags<cpu_access> cpu_access_flags) -> vertex_buffer_ref
 {
     auto buffer = internal::create_buffer(device_.Get(), initial_data, usage, D3D11_BIND_VERTEX_BUFFER, cpu_access_flags);
-    return common::make_intrusive_ptr<dx11_rhi_vertex_buffer>(buffer, initial_data.size(), usage);
+    return aeon::common::make_intrusive_ptr<dx11_rhi_vertex_buffer>(buffer, initial_data.size(), usage);
 }
 
-auto dx11_device::create_index_buffer(const resource_data initial_data, const usage usage, const common::flags<cpu_access> cpu_access_flags) -> index_buffer_ref
+auto dx11_device::create_index_buffer(const resource_data initial_data, const usage usage, const aeon::common::flags<cpu_access> cpu_access_flags) -> index_buffer_ref
 {
     auto buffer = internal::create_buffer(device_.Get(), initial_data, usage, D3D11_BIND_INDEX_BUFFER, cpu_access_flags);
-    return common::make_intrusive_ptr<dx11_rhi_index_buffer>(buffer, initial_data.size(), usage);
+    return aeon::common::make_intrusive_ptr<dx11_rhi_index_buffer>(buffer, initial_data.size(), usage);
 }
 
-auto dx11_device::create_constant_buffer(const resource_data initial_data, const usage usage, const common::flags<cpu_access> cpu_access_flags) -> constant_buffer_ref
+auto dx11_device::create_constant_buffer(const resource_data initial_data, const usage usage, const aeon::common::flags<cpu_access> cpu_access_flags) -> constant_buffer_ref
 {
     auto buffer = internal::create_buffer(device_.Get(), initial_data, usage, D3D11_BIND_CONSTANT_BUFFER, cpu_access_flags);
-    return common::make_intrusive_ptr<dx11_rhi_constant_buffer>(buffer, initial_data.size(), usage);
+    return aeon::common::make_intrusive_ptr<dx11_rhi_constant_buffer>(buffer, initial_data.size(), usage);
 }
 
-auto dx11_device::create_texture2d(const math::size2d<imaging::image_view::dimensions_type> size, const std::uint32_t mip_levels, const format format, const texture_resource_data initial_data)
+auto dx11_device::create_texture2d(const math::size2d<imaging::image_view::dimensions_type> size, const std::uint32_t mip_levels, const common::format format, const texture_resource_data initial_data)
     -> texture2d_ref
 {
     D3D11_SUBRESOURCE_DATA subresource_data{};
@@ -308,7 +308,7 @@ auto dx11_device::create_texture2d(const math::size2d<imaging::image_view::dimen
 
     Microsoft::WRL::ComPtr<ID3D11Texture2D> texture;
     checked_hresult{device_->CreateTexture2D(&description, &subresource_data, &texture)};
-    return common::make_intrusive_ptr<dx11_rhi_texture2d>(texture.Get(), size, mip_levels, format);
+    return aeon::common::make_intrusive_ptr<dx11_rhi_texture2d>(texture.Get(), size, mip_levels, format);
 }
 
 auto dx11_device::create_shader_resource_view(texture &texture) -> shader_resource_view_ref
@@ -340,7 +340,7 @@ auto dx11_device::create_shader_resource_view(texture &texture) -> shader_resour
 
     ID3D11ShaderResourceView *view;
     checked_hresult{device_->CreateShaderResourceView(resource, &shader_resource_view_description, &view)};
-    return common::make_intrusive_ptr<dx11_rhi_shader_resource_view>(view);
+    return aeon::common::make_intrusive_ptr<dx11_rhi_shader_resource_view>(view);
 }
 
 auto dx11_device::create_sampler_state(const sampler_state_settings &settings) -> sampler_state_ref
@@ -362,7 +362,7 @@ auto dx11_device::create_sampler_state(const sampler_state_settings &settings) -
 
     ID3D11SamplerState *state;
     checked_hresult{device_->CreateSamplerState(&sampler_description, &state)};
-    return common::make_intrusive_ptr<dx11_rhi_sampler_state>(settings, state);
+    return aeon::common::make_intrusive_ptr<dx11_rhi_sampler_state>(settings, state);
 }
 
 auto dx11_device::create_bound_shader_state(const std::vector<input_layout_description> &input_layout, vertex_shader *vs, pixel_shader *ps) -> bound_shader_state_ref
@@ -387,7 +387,7 @@ auto dx11_device::create_bound_shader_state(const std::vector<input_layout_descr
     checked_hresult{device_->CreateInputLayout(std::data(layout), static_cast<UINT>(std::size(layout)), std::data(dx11_vertex_shader->compiled_shader), std::size(dx11_vertex_shader->compiled_shader),
                                                &dx11_input_layout)};
 
-    return common::make_intrusive_ptr<dx11_rhi_bound_shader_state>(dx11_input_layout, vs, ps);
+    return aeon::common::make_intrusive_ptr<dx11_rhi_bound_shader_state>(dx11_input_layout, vs, ps);
 }
 
 auto dx11_device::create_graphics_pipeline_state(const graphics_pipeline_state_initializer &initializer) -> graphics_pipeline_state_ref
@@ -402,8 +402,8 @@ auto dx11_device::create_graphics_pipeline_state(const graphics_pipeline_state_i
     if (initializer.depth_stencil_state)
         depth_stencil_state = initializer.depth_stencil_state->native_impl<dx11_rhi_depth_stencil_state>();
 
-    return common::make_intrusive_ptr<dx11_rhi_graphics_pipeline_state>(initializer.bound_shader_state->native_impl<dx11_rhi_bound_shader_state>(), blend_state,
-                                                                        initializer.rasterizer_state->native_impl<dx11_rhi_rasterizer_state>(), depth_stencil_state, initializer.topology);
+    return aeon::common::make_intrusive_ptr<dx11_rhi_graphics_pipeline_state>(initializer.bound_shader_state->native_impl<dx11_rhi_bound_shader_state>(), blend_state,
+                                                                              initializer.rasterizer_state->native_impl<dx11_rhi_rasterizer_state>(), depth_stencil_state, initializer.topology);
 }
 
 auto dx11_device::get_immediate_context() const noexcept -> context &
@@ -566,4 +566,4 @@ void dx11_device::internal_unbind_shader_constant_buffers(const shader_frequency
     }
 }
 
-} // namespace aeon::rhi::dx11
+} // namespace aeon::engine::rhi::dx11

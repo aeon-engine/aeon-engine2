@@ -1,4 +1,4 @@
-# Distributed under the BSD 2-Clause License - Copyright 2019 Robin Degen
+# Distributed under the BSD 2-Clause License - Copyright 2021 Robin Degen
 
 include(GenerateExportHeader)
 

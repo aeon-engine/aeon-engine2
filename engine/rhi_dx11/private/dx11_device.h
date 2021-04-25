@@ -2,14 +2,14 @@
 
 #pragma once
 
-#include <aeon/rhi/device.h>
+#include <aeon/engine/rhi/device.h>
 #include "dx11_context.h"
 #include <wrl/client.h>
 #include <d3dcommon.h>
 #include <d3d11.h>
 #include <dxgi.h>
 
-namespace aeon::rhi::dx11
+namespace aeon::engine::rhi::dx11
 {
 
 class dx11_device final : public device
@@ -27,7 +27,7 @@ public:
     void initialize(platform::context &context, platform::window &window) final;
     void shutdown() final;
 
-    void clear_back_buffer(const common::color_rgba_f &clear_color) final;
+    void clear_back_buffer(const aeon::common::color_rgba_f &clear_color) final;
     void clear_depth_stencil_buffer(const float depth, const int stencil) final;
 
     void present(const int sync_interval) final;
@@ -41,12 +41,12 @@ public:
     [[nodiscard]] auto create_vertex_shader(const std::span<const std::byte> &data) -> vertex_shader_ref final;
     [[nodiscard]] auto create_pixel_shader(const std::span<const std::byte> &data) -> pixel_shader_ref final;
 
-    [[nodiscard]] auto create_vertex_buffer(const resource_data initial_data, const usage usage, const common::flags<cpu_access> cpu_access_flags) -> vertex_buffer_ref final;
-    [[nodiscard]] auto create_index_buffer(const resource_data initial_data, const usage usage, const common::flags<cpu_access> cpu_access_flags) -> index_buffer_ref final;
-    [[nodiscard]] auto create_constant_buffer(const resource_data initial_data, const usage usage, const common::flags<cpu_access> cpu_access_flags) -> constant_buffer_ref final;
+    [[nodiscard]] auto create_vertex_buffer(const resource_data initial_data, const usage usage, const aeon::common::flags<cpu_access> cpu_access_flags) -> vertex_buffer_ref final;
+    [[nodiscard]] auto create_index_buffer(const resource_data initial_data, const usage usage, const aeon::common::flags<cpu_access> cpu_access_flags) -> index_buffer_ref final;
+    [[nodiscard]] auto create_constant_buffer(const resource_data initial_data, const usage usage, const aeon::common::flags<cpu_access> cpu_access_flags) -> constant_buffer_ref final;
 
-    [[nodiscard]] auto create_texture2d(const math::size2d<imaging::image_view::dimensions_type> size, const std::uint32_t mip_levels, const format format, const texture_resource_data initial_data)
-        -> texture2d_ref final;
+    [[nodiscard]] auto create_texture2d(const math::size2d<imaging::image_view::dimensions_type> size, const std::uint32_t mip_levels, const common::format format,
+                                        const texture_resource_data initial_data) -> texture2d_ref final;
 
     [[nodiscard]] auto create_shader_resource_view(texture &texture) -> shader_resource_view_ref final;
 
@@ -90,4 +90,4 @@ private:
     ID3D11Buffer *bound_shader_constant_buffers_[total_shader_frequencies][D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT];
 };
 
-} // namespace aeon::rhi::dx11
+} // namespace aeon::engine::rhi::dx11

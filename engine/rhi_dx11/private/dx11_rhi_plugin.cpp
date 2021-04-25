@@ -1,6 +1,6 @@
 #include "dx11_rhi_plugin.h"
 
-namespace aeon::rhi::dx11
+namespace aeon::engine::rhi::dx11
 {
 
 dx11_rhi_plugin::dx11_rhi_plugin()
@@ -25,6 +25,6 @@ auto dx11_rhi_plugin::get_rhi_device() const noexcept -> device *
     return device_.get();
 }
 
-} // namespace aeon::rhi::dx11
+} // namespace aeon::engine::rhi::dx11
 
-aeon_register_plugin(aeon::rhi::dx11::dx11_rhi_plugin)
+aeon_register_plugin(aeon::engine::rhi::dx11::dx11_rhi_plugin)

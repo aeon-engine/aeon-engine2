@@ -2,11 +2,11 @@
 
 #pragma once
 
-#include <aeon/rhi/shader_resource_view.h>
+#include <aeon/engine/rhi/shader_resource_view.h>
 #include <wrl/client.h>
 #include <d3d11.h>
 
-namespace aeon::rhi::dx11
+namespace aeon::engine::rhi::dx11
 {
 
 class dx11_rhi_shader_resource_view final : public shader_resource_view
@@ -35,4 +35,4 @@ private:
     }
 };
 
-} // namespace aeon::rhi::dx11
+} // namespace aeon::engine::rhi::dx11

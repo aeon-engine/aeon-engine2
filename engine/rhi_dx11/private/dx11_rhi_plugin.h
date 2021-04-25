@@ -2,11 +2,11 @@
 
 #pragma once
 
-#include <aeon/rhi/rhi_plugin.h>
+#include <aeon/engine/rhi/rhi_plugin.h>
 #include "dx11_device.h"
 #include <memory>
 
-namespace aeon::rhi::dx11
+namespace aeon::engine::rhi::dx11
 {
 
 class dx11_rhi_plugin final : public rhi_plugin
@@ -30,4 +30,4 @@ private:
     std::unique_ptr<dx11_device> device_;
 };
 
-} // namespace aeon::rhi::dx11
+} // namespace aeon::engine::rhi::dx11

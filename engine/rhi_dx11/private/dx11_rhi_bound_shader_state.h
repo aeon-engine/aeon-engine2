@@ -2,11 +2,11 @@
 
 #pragma once
 
-#include <aeon/rhi/bound_shader_state.h>
+#include <aeon/engine/rhi/bound_shader_state.h>
 #include <d3d11.h>
 #include <wrl/client.h>
 
-namespace aeon::rhi::dx11
+namespace aeon::engine::rhi::dx11
 {
 
 class dx11_rhi_bound_shader_state : public bound_shader_state
@@ -35,4 +35,4 @@ private:
     }
 };
 
-} // namespace aeon::rhi::dx11
+} // namespace aeon::engine::rhi::dx11

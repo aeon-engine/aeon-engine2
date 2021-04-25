@@ -2,11 +2,11 @@
 
 #pragma once
 
-#include <dx11_context.h>
+#include "dx11_context.h"
 #include <stdexcept>
 #include <system_error>
 
-namespace aeon::rhi::dx11
+namespace aeon::engine::rhi::dx11
 {
 
 class checked_hresult final
@@ -38,4 +38,4 @@ public:
     auto operator=(checked_hresult &&) noexcept -> checked_hresult & = delete;
 };
 
-} // namespace aeon::rhi::dx11
+} // namespace aeon::engine::rhi::dx11

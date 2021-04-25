@@ -1,6 +1,6 @@
-#include <aeon/rhi/rhi.h>
+#include <aeon/engine/rhi/rhi.h>
 
-namespace aeon::rhi
+namespace aeon::engine::rhi
 {
 
 auto rhi::get() -> rhi &
@@ -30,4 +30,4 @@ void rhi::load_rhi_plugin()
     device_ = plugin_->get_rhi_device();
 }
 
-} // namespace aeon::rhi
+} // namespace aeon::engine::rhi

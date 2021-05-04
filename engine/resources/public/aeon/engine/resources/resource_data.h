@@ -4,7 +4,7 @@
 
 #include <aeon/engine/resources/export.h>
 #include <aeon/common/uuid.h>
-#include <vector>
+#include <set>
 
 namespace aeon::engine::resources
 {
@@ -12,7 +12,7 @@ namespace aeon::engine::resources
 class AEON_ENGINE_RESOURCES_EXPORT resource_data
 {
 public:
-    using resource_id = aeon::common::uuid;
+    using resource_id = common::uuid;
 
     virtual ~resource_data();
 
@@ -28,15 +28,21 @@ public:
     [[nodiscard]] auto id() const noexcept -> const resource_id &;
 
     /*!
+     * Get the allocator this resource was created with.
+     */
+    [[nodiscard]] auto get_allocator() const noexcept -> std::pmr::memory_resource *;
+
+    /*!
      * Returns the resources that this resource depends on (for example a mesh depends on a material)
      */
-    [[nodiscard]] virtual auto dependencies() const noexcept -> std::vector<resource_id> = 0;
+    [[nodiscard]] virtual auto dependencies() const noexcept -> std::pmr::set<resource_id> = 0;
 
 protected:
-    resource_data() noexcept;
-    explicit resource_data(resource_id id);
+    explicit resource_data(std::pmr::memory_resource *allocator = std::pmr::get_default_resource()) noexcept;
+    explicit resource_data(const resource_id &id, std::pmr::memory_resource *allocator = std::pmr::get_default_resource());
 
 private:
+    std::pmr::memory_resource *allocator_;
     resource_id id_;
 };
 

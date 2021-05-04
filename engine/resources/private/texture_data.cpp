@@ -5,8 +5,8 @@
 namespace aeon::engine::resources
 {
 
-texture_data::texture_data(const math::size2d<std::uint32_t> dimensions, const common::format format, const std::uint32_t num_mips, std::vector<std::byte> data) noexcept
-    : resource_data{}
+texture_data::texture_data(const math::size2d<std::uint32_t> dimensions, const common::format format, const std::uint32_t num_mips, std::vector<std::byte> data, std::pmr::memory_resource *allocator) noexcept
+    : resource_data{allocator}
     , dimensions_{dimensions}
     , format_{format}
     , num_mips_{num_mips}
@@ -14,8 +14,8 @@ texture_data::texture_data(const math::size2d<std::uint32_t> dimensions, const c
 {
 }
 
-texture_data::texture_data(const resource_id id, const math::size2d<std::uint32_t> dimensions, const common::format format, const std::uint32_t num_mips, std::vector<std::byte> data) noexcept
-    : resource_data{id}
+texture_data::texture_data(const resource_id id, const math::size2d<std::uint32_t> dimensions, const common::format format, const std::uint32_t num_mips, std::vector<std::byte> data, std::pmr::memory_resource *allocator) noexcept
+    : resource_data{id, allocator}
     , dimensions_{dimensions}
     , format_{format}
     , num_mips_{num_mips}
@@ -45,7 +45,7 @@ auto texture_data::data() const noexcept -> const std::vector<std::byte> &
     return data_;
 }
 
-auto texture_data::dependencies() const noexcept -> std::vector<resource_id>
+auto texture_data::dependencies() const noexcept -> std::pmr::set<resource_id>
 {
     return {};
 }

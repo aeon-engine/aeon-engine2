@@ -14,8 +14,8 @@ namespace aeon::engine::resources
 class AEON_ENGINE_RESOURCES_EXPORT texture_data final : public resource_data
 {
 public:
-    explicit texture_data(const math::size2d<std::uint32_t> dimensions, const common::format format, const std::uint32_t num_mips, std::vector<std::byte> data) noexcept;
-    explicit texture_data(const resource_id id, math::size2d<std::uint32_t> dimensions, const common::format format, const std::uint32_t num_mips, std::vector<std::byte> data) noexcept;
+    explicit texture_data(const math::size2d<std::uint32_t> dimensions, const common::format format, const std::uint32_t num_mips, std::vector<std::byte> data, std::pmr::memory_resource *allocator = std::pmr::get_default_resource()) noexcept;
+    explicit texture_data(const resource_id id, math::size2d<std::uint32_t> dimensions, const common::format format, const std::uint32_t num_mips, std::vector<std::byte> data, std::pmr::memory_resource *allocator = std::pmr::get_default_resource()) noexcept;
     ~texture_data() final;
 
     texture_data(const texture_data &) = delete;
@@ -29,13 +29,13 @@ public:
     [[nodiscard]] auto num_mips() const noexcept -> std::uint32_t;
     [[nodiscard]] auto data() const noexcept -> const std::vector<std::byte> &;
 
-    [[nodiscard]] auto dependencies() const noexcept -> std::vector<resource_id> final;
+    [[nodiscard]] auto dependencies() const noexcept -> std::pmr::set<resource_id> final;
 
 private:
     math::size2d<std::uint32_t> dimensions_;
     common::format format_;
-    std::uint32_t num_mips_;
-    std::vector<std::byte> data_;
+    std::uint32_t num_mips_; // TODO: Support multiple mips
+    std::vector<std::byte> data_; // Should this use the given allocator?
 };
 
 } // namespace aeon::engine::resources

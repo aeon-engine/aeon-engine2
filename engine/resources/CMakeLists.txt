@@ -6,13 +6,13 @@ set(SOURCES
     private/material_data.cpp
     private/mesh_data.cpp
     private/resource_data.cpp
-    private/scene_data.cpp
+    private/scene_node_data.cpp
     private/scene_prefab_data.cpp
     private/texture_data.cpp
     public/aeon/engine/resources/material_data.h
     public/aeon/engine/resources/mesh_data.h
     public/aeon/engine/resources/resource_data.h
-    public/aeon/engine/resources/scene_data.h
+    public/aeon/engine/resources/scene_node_data.h
     public/aeon/engine/resources/scene_prefab_data.h
     public/aeon/engine/resources/texture_data.h
 )

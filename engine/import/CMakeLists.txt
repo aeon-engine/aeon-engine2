@@ -5,9 +5,13 @@ include(GenerateExportHeader)
 set(SOURCES
     private/codecs/assimp/assimp_codec.cpp
     private/codecs/assimp/assimp_codec.h
+    private/codecs/assimp/generic_image_codec.cpp
+    private/codecs/assimp/generic_image_codec.h
     private/codecs/codec.h
-    private/importer.cpp
-    public/aeon/import/importer.h
+    private/importer_impl.cpp
+    private/importer_impl.h
+    public/aeon/engine/import/importer.h
+    public/aeon/engine/import/import_result.h
 )
 
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${SOURCES})
@@ -17,7 +21,7 @@ add_library(aeon_engine_import SHARED
 )
 
 generate_export_header(aeon_engine_import
-    EXPORT_FILE_NAME public/aeon/import/export.h
+    EXPORT_FILE_NAME public/aeon/engine/import/export.h
 )
 
 set_target_properties(aeon_engine_import PROPERTIES

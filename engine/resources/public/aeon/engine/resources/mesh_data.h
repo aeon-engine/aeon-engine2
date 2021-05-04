@@ -17,8 +17,10 @@ public:
     using vertex_type = common::vertex_data;
     using index_type = std::uint32_t;
 
-    explicit mesh_data(std::vector<vertex_type> vertices, std::vector<index_type> indices, const resource_id material_id) noexcept;
-    explicit mesh_data(const resource_id id, std::vector<vertex_type> vertices, std::vector<index_type> indices, const resource_id material_id) noexcept;
+    explicit mesh_data(std::vector<vertex_type> vertices, std::vector<index_type> indices, const resource_id material_id,
+                       std::pmr::memory_resource *allocator = std::pmr::get_default_resource()) noexcept;
+    explicit mesh_data(const resource_id id, std::vector<vertex_type> vertices, std::vector<index_type> indices, const resource_id material_id,
+                       std::pmr::memory_resource *allocator = std::pmr::get_default_resource()) noexcept;
     ~mesh_data() final;
 
     mesh_data(const mesh_data &) = delete;
@@ -29,9 +31,9 @@ public:
 
     [[nodiscard]] auto vertices() const noexcept -> const std::vector<vertex_type> &;
     [[nodiscard]] auto indices() const noexcept -> const std::vector<index_type> &;
-    [[nodiscard]] auto material_id() const noexcept -> const resource_id &;
+    [[nodiscard]] auto material_id() const noexcept -> resource_id;
 
-    [[nodiscard]] auto dependencies() const noexcept -> std::vector<resource_id> final;
+    [[nodiscard]] auto dependencies() const noexcept -> std::pmr::set<resource_id> final;
 
 private:
     std::vector<vertex_type> vertices_;

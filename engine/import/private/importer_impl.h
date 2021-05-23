@@ -13,7 +13,7 @@ namespace aeon::engine::import
 class importer_impl final : public importer
 {
 public:
-    explicit importer_impl(std::pmr::memory_resource *allocator = std::pmr::get_default_resource()) noexcept;
+    explicit importer_impl() noexcept;
     ~importer_impl() final;
 
     importer_impl(const importer_impl &) = delete;
@@ -22,7 +22,7 @@ public:
     importer_impl(importer_impl &&) noexcept = delete;
     auto operator=(importer_impl &&) noexcept -> importer_impl & = delete;
 
-    [[nodiscard]] auto import(const std::filesystem::path &path, std::pmr::memory_resource *allocator = std::pmr::get_default_resource()) -> import_result final;
+    [[nodiscard]] auto import(const core::types::path &path) -> import_result final;
 
 private:
     std::pmr::vector<std::unique_ptr<codecs::codec>> codecs_;

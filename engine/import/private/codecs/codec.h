@@ -3,8 +3,7 @@
 #pragma once
 
 #include <aeon/engine/import/import_result.h>
-#include <aeon/streams/idynamic_stream.h>
-#include <filesystem>
+#include <aeon/engine/core/hal/file_manager.h>
 
 namespace aeon::engine::import::codecs
 {
@@ -27,18 +26,17 @@ public:
     codec(codec &&) noexcept = delete;
     auto operator=(codec &&) noexcept -> codec & = delete;
 
-    [[nodiscard]] virtual auto import_texture(const streams::idynamic_stream &stream, std::pmr::memory_resource *allocator = std::pmr::get_default_resource())
-        -> aeon::common::pmr::unique_ptr<resources::texture_data>
+    [[nodiscard]] virtual auto import_texture([[maybe_unused]] const core::types::path &path) -> aeon::common::pmr::unique_ptr<resources::texture_data>
     {
         throw std::runtime_error{"Unsupported for this format."};
     }
 
-    [[nodiscard]] virtual auto import_multi(const streams::idynamic_stream &stream, std::pmr::memory_resource *allocator = std::pmr::get_default_resource()) -> import_result
+    [[nodiscard]] virtual auto import_multi([[maybe_unused]] const core::types::path &path) -> import_result
     {
         throw std::runtime_error{"Unsupported for this format."};
     }
 
-    [[nodiscard]] virtual auto supports_format(const std::string &extension) const noexcept -> format_type = 0;
+    [[nodiscard]] virtual auto format_support_type(const std::u8string &extension) const noexcept -> format_type = 0;
 
 protected:
     codec() noexcept = default;

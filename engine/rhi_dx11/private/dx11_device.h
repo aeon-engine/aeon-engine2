@@ -45,7 +45,7 @@ public:
     [[nodiscard]] auto create_index_buffer(const resource_data initial_data, const usage usage, const aeon::common::flags<cpu_access> cpu_access_flags) -> index_buffer_ref final;
     [[nodiscard]] auto create_constant_buffer(const resource_data initial_data, const usage usage, const aeon::common::flags<cpu_access> cpu_access_flags) -> constant_buffer_ref final;
 
-    [[nodiscard]] auto create_texture2d(const math::size2d<imaging::image_view::dimensions_type> size, const std::uint32_t mip_levels, const common::format format,
+    [[nodiscard]] auto create_texture2d(const math::size2d<imaging::image_view::dimensions_type> size, const std::uint32_t mip_levels, const imaging::format format,
                                         const texture_resource_data initial_data) -> texture2d_ref final;
 
     [[nodiscard]] auto create_shader_resource_view(texture &texture) -> shader_resource_view_ref final;

@@ -7,8 +7,8 @@ namespace aeon::engine::resources
 
 material_data::material_data(const resource_id albedo_texture_id, const resource_id normal_texture_id, const resource_id roughness_texture_id, const resource_id metalness_texture_id,
                              const resource_id specular_texture_id, const resource_id displacement_texture_id, const resource_id ambient_occlusion_texture_id, const resource_id refraction_texture_id,
-                             const resource_id emissive_texture_id, std::pmr::memory_resource *allocator) noexcept
-    : resource_data{allocator}
+                             const resource_id emissive_texture_id) noexcept
+    : resource_data{}
     , albedo_texture_id_{albedo_texture_id}
     , normal_texture_id_{normal_texture_id}
     , roughness_texture_id_{roughness_texture_id}
@@ -24,8 +24,8 @@ material_data::material_data(const resource_id albedo_texture_id, const resource
 
 material_data::material_data(const resource_id id, const resource_id albedo_texture_id, const resource_id normal_texture_id, const resource_id roughness_texture_id,
                              const resource_id metalness_texture_id, const resource_id specular_texture_id, const resource_id displacement_texture_id, const resource_id ambient_occlusion_texture_id,
-                             const resource_id refraction_texture_id, const resource_id emissive_texture_id, std::pmr::memory_resource *allocator) noexcept
-    : resource_data{id, allocator}
+                             const resource_id refraction_texture_id, const resource_id emissive_texture_id) noexcept
+    : resource_data{id}
     , albedo_texture_id_{albedo_texture_id}
     , normal_texture_id_{normal_texture_id}
     , roughness_texture_id_{roughness_texture_id}
@@ -85,9 +85,9 @@ auto material_data::emissive_texture_id() const noexcept -> resource_id
     return emissive_texture_id_;
 }
 
-auto material_data::dependencies() const noexcept -> std::pmr::set<resource_id>
+auto material_data::dependencies() const noexcept -> std::set<resource_id>
 {
-    std::pmr::set<resource_id> dependencies{get_allocator()};
+    std::set<resource_id> dependencies;
 
     if (albedo_texture_id_)
         dependencies.insert(albedo_texture_id_);

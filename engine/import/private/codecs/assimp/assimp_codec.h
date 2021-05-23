@@ -20,9 +20,9 @@ public:
     assimp_codec(assimp_codec &&) noexcept = delete;
     auto operator=(assimp_codec &&) noexcept -> assimp_codec & = delete;
 
-    [[nodiscard]] auto import_multi(const streams::idynamic_stream &stream, std::pmr::memory_resource *allocator = std::pmr::get_default_resource()) -> import_result final;
+    [[nodiscard]] auto import_multi(const core::types::path &path) -> import_result final;
 
-    [[nodiscard]] auto supports_format(const std::string &extension) const noexcept -> format_type final;
+    [[nodiscard]] auto format_support_type(const std::u8string &extension) const noexcept -> format_type final;
 
 private:
     Assimp::Importer importer_;

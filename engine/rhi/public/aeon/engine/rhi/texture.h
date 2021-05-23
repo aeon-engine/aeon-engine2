@@ -3,7 +3,6 @@
 #pragma once
 
 #include <aeon/engine/rhi/resource.h>
-#include <aeon/engine/common/format.h>
 #include <aeon/imaging/image_view.h>
 #include <aeon/math/size2d.h>
 
@@ -47,7 +46,7 @@ public:
     }
 
 protected:
-    explicit texture(const std::uint32_t mip_levels, const common::format format) noexcept
+    explicit texture(const std::uint32_t mip_levels, const imaging::format format) noexcept
         : resource{}
         , mip_levels_{mip_levels}
         , format_{format}
@@ -56,7 +55,7 @@ protected:
 
 private:
     std::uint32_t mip_levels_;
-    common::format format_;
+    imaging::format format_;
 };
 
 class texture2d : public texture
@@ -81,7 +80,7 @@ public:
     }
 
 protected:
-    explicit texture2d(const math::size2d<imaging::image_view::dimensions_type> size, const std::uint32_t mip_levels, const common::format format) noexcept
+    explicit texture2d(const math::size2d<imaging::image_view::dimensions_type> size, const std::uint32_t mip_levels, const imaging::format format) noexcept
         : texture{mip_levels, format}
         , size_{size}
     {

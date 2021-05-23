@@ -4,7 +4,7 @@
 
 #include <aeon/engine/rhi/resource.h>
 #include <aeon/engine/rhi/wrap_mode.h>
-#include <aeon/engine/common/filter_type.h>
+#include <aeon/engine/core/types/filter_type.h>
 
 namespace aeon::engine::rhi
 {
@@ -12,12 +12,12 @@ namespace aeon::engine::rhi
 class sampler_state_settings
 {
 public:
-    explicit sampler_state_settings(const common::filter_type filter, const wrap_mode wrap_mode = wrap_mode::wrap, const std::uint32_t max_anisotropy = 1.0f) noexcept
+    explicit sampler_state_settings(const core::types::filter_type filter, const wrap_mode wrap_mode = wrap_mode::wrap, const std::uint32_t max_anisotropy = 1.0f) noexcept
         : sampler_state_settings{filter, wrap_mode, wrap_mode, wrap_mode, 0.0f, max_anisotropy, 0.0f, 1000.0f}
     {
     }
 
-    explicit sampler_state_settings(const common::filter_type filter, const wrap_mode wrap_mode_u, const wrap_mode wrap_mode_v, const wrap_mode wrap_mode_w, const float mip_lod_bias,
+    explicit sampler_state_settings(const core::types::filter_type filter, const wrap_mode wrap_mode_u, const wrap_mode wrap_mode_v, const wrap_mode wrap_mode_w, const float mip_lod_bias,
                                     const std::uint32_t max_anisotropy, const float min_lod, const float max_lod) noexcept
         : filter_{filter}
         , wrap_mode_u_{wrap_mode_u}
@@ -79,7 +79,7 @@ public:
     }
 
 private:
-    common::filter_type filter_;
+    core::types::filter_type filter_;
     wrap_mode wrap_mode_u_;
     wrap_mode wrap_mode_v_;
     wrap_mode wrap_mode_w_;

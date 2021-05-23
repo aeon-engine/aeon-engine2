@@ -285,8 +285,8 @@ auto dx11_device::create_constant_buffer(const resource_data initial_data, const
     return aeon::common::make_intrusive_ptr<dx11_rhi_constant_buffer>(buffer, initial_data.size(), usage);
 }
 
-auto dx11_device::create_texture2d(const math::size2d<imaging::image_view::dimensions_type> size, const std::uint32_t mip_levels, const common::format format, const texture_resource_data initial_data)
-    -> texture2d_ref
+auto dx11_device::create_texture2d(const math::size2d<imaging::image_view::dimensions_type> size, const std::uint32_t mip_levels, const imaging::format format,
+                                   const texture_resource_data initial_data) -> texture2d_ref
 {
     D3D11_SUBRESOURCE_DATA subresource_data{};
     subresource_data.pSysMem = initial_data.data();

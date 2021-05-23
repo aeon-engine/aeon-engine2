@@ -51,7 +51,7 @@ target_include_directories(aeon_engine_rhi
 
 target_link_libraries(aeon_engine_rhi
     PUBLIC
-        aeon_engine_common
+        aeon_engine_core
         aeon_platform
         aeon_math
         aeon_imaging

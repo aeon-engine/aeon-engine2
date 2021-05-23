@@ -4,8 +4,8 @@
 
 #include <aeon/engine/import/import_result.h>
 #include <aeon/engine/import/export.h>
+#include <aeon/engine/core/types/path.h>
 #include <memory_resource>
-#include <filesystem>
 
 namespace aeon::engine::import
 {
@@ -13,7 +13,7 @@ namespace aeon::engine::import
 class importer
 {
 public:
-    AEON_ENGINE_IMPORT_EXPORT [[nodiscard]] static auto create(std::pmr::memory_resource *allocator = std::pmr::get_default_resource()) -> std::unique_ptr<importer>;
+    [[nodiscard]] AEON_ENGINE_IMPORT_EXPORT static auto create() -> std::unique_ptr<importer>;
 
     virtual ~importer() = default;
 
@@ -23,7 +23,7 @@ public:
     importer(importer &&) noexcept = delete;
     auto operator=(importer &&) noexcept -> importer & = delete;
 
-    [[nodiscard]] virtual auto import(const std::filesystem::path &path, std::pmr::memory_resource *allocator = std::pmr::get_default_resource()) -> import_result = 0;
+    [[nodiscard]] virtual auto import(const core::types::path &path) -> import_result = 0;
 
 protected:
     importer() noexcept = default;

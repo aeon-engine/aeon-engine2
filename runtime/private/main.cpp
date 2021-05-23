@@ -113,9 +113,9 @@ int main([[maybe_unused]] const int argc, [[maybe_unused]] char *argv[])
     auto pixel_shader = rhi_device.create_pixel_shader(pixel_shader_data);
 
     const std::vector<aeon::engine::rhi::input_layout_description> elements{
-        {"POSITION", aeon::engine::common::format::r32g32b32_float, offsetof(vertex, position)},  {"TEXCOORD", aeon::engine::common::format::r32g32_float, offsetof(vertex, uv)},
-        {"NORMAL", aeon::engine::common::format::r32g32b32_float, offsetof(vertex, normal)},      {"TANGENT", aeon::engine::common::format::r32g32b32_float, offsetof(vertex, tangent)},
-        {"BINORMAL", aeon::engine::common::format::r32g32b32_float, offsetof(vertex, bitangent)},
+        {"POSITION", aeon::imaging::format::r32g32b32_float, offsetof(vertex, position)},  {"TEXCOORD", aeon::imaging::format::r32g32_float, offsetof(vertex, uv)},
+        {"NORMAL", aeon::imaging::format::r32g32b32_float, offsetof(vertex, normal)},      {"TANGENT", aeon::imaging::format::r32g32b32_float, offsetof(vertex, tangent)},
+        {"BINORMAL", aeon::imaging::format::r32g32b32_float, offsetof(vertex, bitangent)},
     };
 
     auto bound_shader_state = rhi_device.create_bound_shader_state(elements, vert_shader.get(), pixel_shader.get());
@@ -174,17 +174,17 @@ int main([[maybe_unused]] const int argc, [[maybe_unused]] char *argv[])
 
     auto color_texture_file = aeon::imaging::file::load("data/color.png");
     auto color_texture =
-        rhi_device.create_texture2d(color_texture_file.dimensions(), 1, aeon::engine::common::format::r8g8b8a8_unorm,
+        rhi_device.create_texture2d(color_texture_file.dimensions(), 1, aeon::imaging::format::r8g8b8a8_uint,
                                     aeon::engine::rhi::texture_resource_data{color_texture_file.data(), color_texture_file.size(), static_cast<std::uint32_t>(color_texture_file.stride())});
     auto color_texture_view = rhi_device.create_shader_resource_view(*color_texture);
 
     auto normal_texture_file = aeon::imaging::file::load("data/normal.png");
     auto normal_texture =
-        rhi_device.create_texture2d(normal_texture_file.dimensions(), 1, aeon::engine::common::format::r8g8b8a8_unorm,
+        rhi_device.create_texture2d(normal_texture_file.dimensions(), 1, aeon::imaging::format::r8g8b8a8_uint,
                                     aeon::engine::rhi::texture_resource_data{normal_texture_file.data(), normal_texture_file.size(), static_cast<std::uint32_t>(normal_texture_file.stride())});
     auto normal_texture_view = rhi_device.create_shader_resource_view(*normal_texture);
 
-    aeon::engine::rhi::sampler_state_settings sampler_settings(aeon::engine::common::filter_type::maximum_anisotropic, aeon::engine::rhi::wrap_mode::wrap, 16);
+    aeon::engine::rhi::sampler_state_settings sampler_settings(aeon::engine::core::types::filter_type::maximum_anisotropic, aeon::engine::rhi::wrap_mode::wrap, 16);
     auto sampler = rhi_device.create_sampler_state(sampler_settings);
 
     float rotation = 0.0f;
@@ -194,7 +194,7 @@ int main([[maybe_unused]] const int argc, [[maybe_unused]] char *argv[])
         rhi_device.clear_depth_stencil_buffer();
 
         rhi_context.set_vertex_buffer(*vertex_buffer, sizeof(vertex));
-        rhi_context.set_index_buffer(*index_buffer, aeon::engine::common::format::r32_uint);
+        rhi_context.set_index_buffer(*index_buffer, aeon::imaging::format::r32_uint);
 
         rotation += (float)std::numbers::pi * 0.005f;
         if (rotation > 360.0f)

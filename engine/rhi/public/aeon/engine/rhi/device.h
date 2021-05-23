@@ -15,7 +15,6 @@
 #include <aeon/engine/rhi/context.h>
 #include <aeon/engine/rhi/blend_state.h>
 #include <aeon/engine/rhi/depth_stencil_state.h>
-#include <aeon/engine/common/format.h>
 #include <aeon/platform/window.h>
 #include <aeon/imaging/image_view.h>
 #include <aeon/math/size2d.h>
@@ -60,7 +59,7 @@ public:
     [[nodiscard]] virtual auto create_constant_buffer(const resource_data initial_data, const usage usage = usage::dynamic, const aeon::common::flags<cpu_access> cpu_access_flags = cpu_access::write)
         -> constant_buffer_ref = 0;
 
-    [[nodiscard]] virtual auto create_texture2d(const math::size2d<imaging::image_view::dimensions_type> size, const std::uint32_t mip_levels, const common::format format,
+    [[nodiscard]] virtual auto create_texture2d(const math::size2d<imaging::image_view::dimensions_type> size, const std::uint32_t mip_levels, const imaging::format format,
                                                 const texture_resource_data initial_data) -> texture2d_ref = 0;
 
     [[nodiscard]] virtual auto create_shader_resource_view(texture &texture) -> shader_resource_view_ref = 0;

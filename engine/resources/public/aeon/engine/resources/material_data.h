@@ -13,10 +13,10 @@ class AEON_ENGINE_RESOURCES_EXPORT material_data final : public resource_data
 public:
     explicit material_data(const resource_id albedo_texture_id, const resource_id normal_texture_id, const resource_id roughness_texture_id, const resource_id metalness_texture_id,
                            const resource_id specular_texture_id, const resource_id displacement_texture_id, const resource_id ambient_occlusion_texture_id, const resource_id refraction_texture_id,
-                           const resource_id emissive_texture_id, std::pmr::memory_resource *allocator = std::pmr::get_default_resource()) noexcept;
+                           const resource_id emissive_texture_id) noexcept;
     explicit material_data(const resource_id id, const resource_id albedo_texture_id, const resource_id normal_texture_id, const resource_id roughness_texture_id,
                            const resource_id metalness_texture_id, const resource_id specular_texture_id, const resource_id displacement_texture_id, const resource_id ambient_occlusion_texture_id,
-                           const resource_id refraction_texture_id, const resource_id emissive_texture_id, std::pmr::memory_resource *allocator = std::pmr::get_default_resource()) noexcept;
+                           const resource_id refraction_texture_id, const resource_id emissive_texture_id) noexcept;
     ~material_data() final;
 
     material_data(const material_data &) = delete;
@@ -35,7 +35,7 @@ public:
     [[nodiscard]] auto refraction_texture_id() const noexcept -> resource_id;
     [[nodiscard]] auto emissive_texture_id() const noexcept -> resource_id;
 
-    [[nodiscard]] auto dependencies() const noexcept -> std::pmr::set<resource_id> final;
+    [[nodiscard]] auto dependencies() const noexcept -> std::set<resource_id> final;
 
 private:
     const resource_id albedo_texture_id_; // diffuse, base color, optionally combined with opacity through alpha

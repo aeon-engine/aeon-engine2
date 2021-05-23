@@ -42,7 +42,8 @@ target_include_directories(aeon_engine_resources
 
 target_link_libraries(aeon_engine_resources
     PUBLIC
-        aeon_engine_common
+        aeon_engine_core
+        aeon_imaging
 )
 
 install(

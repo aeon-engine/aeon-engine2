@@ -4,7 +4,7 @@
 
 #include <aeon/engine/resources/resource_data.h>
 #include <aeon/engine/resources/export.h>
-#include <aeon/engine/common/vertex_data.h>
+#include <aeon/engine/core/types/vertex_data.h>
 #include <vector>
 #include <cstdint>
 
@@ -14,13 +14,11 @@ namespace aeon::engine::resources
 class AEON_ENGINE_RESOURCES_EXPORT mesh_data final : public resource_data
 {
 public:
-    using vertex_type = common::vertex_data;
+    using vertex_type = core::types::vertex_data;
     using index_type = std::uint32_t;
 
-    explicit mesh_data(std::vector<vertex_type> vertices, std::vector<index_type> indices, const resource_id material_id,
-                       std::pmr::memory_resource *allocator = std::pmr::get_default_resource()) noexcept;
-    explicit mesh_data(const resource_id id, std::vector<vertex_type> vertices, std::vector<index_type> indices, const resource_id material_id,
-                       std::pmr::memory_resource *allocator = std::pmr::get_default_resource()) noexcept;
+    explicit mesh_data(std::vector<vertex_type> vertices, std::vector<index_type> indices, const resource_id material_id) noexcept;
+    explicit mesh_data(const resource_id id, std::vector<vertex_type> vertices, std::vector<index_type> indices, const resource_id material_id) noexcept;
     ~mesh_data() final;
 
     mesh_data(const mesh_data &) = delete;
@@ -33,7 +31,7 @@ public:
     [[nodiscard]] auto indices() const noexcept -> const std::vector<index_type> &;
     [[nodiscard]] auto material_id() const noexcept -> resource_id;
 
-    [[nodiscard]] auto dependencies() const noexcept -> std::pmr::set<resource_id> final;
+    [[nodiscard]] auto dependencies() const noexcept -> std::set<resource_id> final;
 
 private:
     std::vector<vertex_type> vertices_;

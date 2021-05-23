@@ -40,7 +40,7 @@ private:
 class dx11_rhi_texture2d final : public dx11_rhi_texture_base<texture2d>
 {
 public:
-    explicit dx11_rhi_texture2d(ID3D11Resource *texture, const math::size2d<imaging::image_view::dimensions_type> size, const std::uint32_t mip_levels, const common::format format) noexcept
+    explicit dx11_rhi_texture2d(ID3D11Resource *texture, const math::size2d<imaging::image_view::dimensions_type> size, const std::uint32_t mip_levels, const imaging::format format) noexcept
         : dx11_rhi_texture_base<texture2d>{texture, size, mip_levels, format}
     {
     }

@@ -14,10 +14,10 @@ namespace aeon::engine::import
 
 struct import_result
 {
-    std::pmr::vector<aeon::common::pmr::unique_ptr<resources::texture_data>> textures;
-    std::pmr::vector<aeon::common::pmr::unique_ptr<resources::material_data>> materials;
-    std::pmr::vector<aeon::common::pmr::unique_ptr<resources::mesh_data>> meshes;
-    std::pmr::vector<aeon::common::pmr::unique_ptr<resources::scene_prefab_data>> prefabs;
+    std::pmr::vector<common::pmr::unique_ptr<resources::texture_data>> textures;
+    std::pmr::vector<common::pmr::unique_ptr<resources::material_data>> materials;
+    std::pmr::vector<common::pmr::unique_ptr<resources::mesh_data>> meshes;
+    std::pmr::vector<common::pmr::unique_ptr<resources::scene_prefab_data>> prefabs;
 };
 
 } // namespace aeon::engine::import

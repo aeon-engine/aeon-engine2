@@ -29,7 +29,7 @@ void dx11_context::set_vertex_buffer(vertex_buffer &buffer, const std::uint32_t 
     context_->IASetVertexBuffers(slot, 1, &d3d_buffer, &stride, &offset);
 }
 
-void dx11_context::set_index_buffer(index_buffer &buffer, const common::format format, const std::uint32_t offset)
+void dx11_context::set_index_buffer(index_buffer &buffer, const imaging::format format, const std::uint32_t offset)
 {
     context_->IASetIndexBuffer(buffer.native_impl<dx11_rhi_index_buffer>()->buffer.Get(), convert_format(format), offset);
 }

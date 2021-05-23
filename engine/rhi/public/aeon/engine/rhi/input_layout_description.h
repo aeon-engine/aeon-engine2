@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include <aeon/engine/common/format.h>
+#include <aeon/imaging/format.h>
 #include <cstdint>
 #include <string>
 
@@ -12,7 +12,7 @@ namespace aeon::engine::rhi
 struct input_layout_description final
 {
     std::string name;
-    common::format format = common::format::r32g32b32a32_float;
+    imaging::format format = imaging::format::r32g32b32a32_float;
     std::uint32_t stride = 0;
 };
 

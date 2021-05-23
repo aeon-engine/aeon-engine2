@@ -41,7 +41,8 @@ target_link_libraries(aeon_engine_import
     PUBLIC
         aeon_engine_resources
     PRIVATE
-        aeon_streams
+        aeon_common
+        aeon_imaging
         assimp::assimp
 )
 

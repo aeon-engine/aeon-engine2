@@ -8,7 +8,7 @@ namespace aeon::engine::resources
 namespace internal
 {
 
-void add_dependencies(std::pmr::set<resource_data::resource_id> &dependencies, const scene_node_data &node)
+void add_dependencies(std::set<resource_data::resource_id> &dependencies, const scene_node_data &node)
 {
     for (const auto &id : node.component_ids())
     {
@@ -24,13 +24,13 @@ void add_dependencies(std::pmr::set<resource_data::resource_id> &dependencies, c
 } // namespace internal
 
 scene_prefab_data::scene_prefab_data(std::string name, std::pmr::memory_resource *allocator) noexcept
-    : resource_data{allocator}
+    : resource_data{}
     , root_{common::pmr::make_unique<scene_node_data>(allocator, std::move(name), math::mat4::indentity(), allocator)}
 {
 }
 
 scene_prefab_data::scene_prefab_data(const resource_id id, std::string name, std::pmr::memory_resource *allocator) noexcept
-    : resource_data{id, allocator}
+    : resource_data{id}
     , root_{common::pmr::make_unique<scene_node_data>(allocator, std::move(name), math::mat4::indentity(), allocator)}
 {
 }
@@ -47,9 +47,9 @@ auto scene_prefab_data::root() const noexcept -> const scene_node_data &
     return *root_;
 }
 
-auto scene_prefab_data::dependencies() const noexcept -> std::pmr::set<resource_id>
+auto scene_prefab_data::dependencies() const noexcept -> std::set<resource_id>
 {
-    std::pmr::set<resource_id> dependencies{get_allocator()};
+    std::set<resource_id> dependencies;
     internal::add_dependencies(dependencies, *root_);
     return dependencies;
 }

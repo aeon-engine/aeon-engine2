@@ -2,7 +2,7 @@
 
 #pragma once
 
-namespace aeon::engine::common
+namespace aeon::engine::core::types
 {
 
 enum class filter_type
@@ -45,4 +45,4 @@ enum class filter_type
     maximum_anisotropic,
 };
 
-} // namespace aeon::engine::common
+} // namespace aeon::engine::core::types

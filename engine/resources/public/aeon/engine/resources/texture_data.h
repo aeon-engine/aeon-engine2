@@ -4,9 +4,7 @@
 
 #include <aeon/engine/resources/resource_data.h>
 #include <aeon/engine/resources/export.h>
-#include <aeon/engine/common/format.h>
-#include <aeon/math/size2d.h>
-#include <vector>
+#include <aeon/imaging/image.h>
 
 namespace aeon::engine::resources
 {
@@ -14,8 +12,8 @@ namespace aeon::engine::resources
 class AEON_ENGINE_RESOURCES_EXPORT texture_data final : public resource_data
 {
 public:
-    explicit texture_data(const math::size2d<std::uint32_t> dimensions, const common::format format, const std::uint32_t num_mips, std::vector<std::byte> data, std::pmr::memory_resource *allocator = std::pmr::get_default_resource()) noexcept;
-    explicit texture_data(const resource_id id, math::size2d<std::uint32_t> dimensions, const common::format format, const std::uint32_t num_mips, std::vector<std::byte> data, std::pmr::memory_resource *allocator = std::pmr::get_default_resource()) noexcept;
+    explicit texture_data(imaging::image image) noexcept;
+    explicit texture_data(const resource_id id, imaging::image image) noexcept;
     ~texture_data() final;
 
     texture_data(const texture_data &) = delete;
@@ -24,18 +22,11 @@ public:
     texture_data(texture_data &&) noexcept = default;
     auto operator=(texture_data &&) noexcept -> texture_data & = default;
 
-    [[nodiscard]] auto dimensions() const noexcept -> math::size2d<std::uint32_t>;
-    [[nodiscard]] auto format() const noexcept -> common::format;
-    [[nodiscard]] auto num_mips() const noexcept -> std::uint32_t;
-    [[nodiscard]] auto data() const noexcept -> const std::vector<std::byte> &;
-
-    [[nodiscard]] auto dependencies() const noexcept -> std::pmr::set<resource_id> final;
+    [[nodiscard]] auto image() const noexcept -> const imaging::image &;
+    [[nodiscard]] auto dependencies() const noexcept -> std::set<resource_id> final;
 
 private:
-    math::size2d<std::uint32_t> dimensions_;
-    common::format format_;
-    std::uint32_t num_mips_; // TODO: Support multiple mips
-    std::vector<std::byte> data_; // Should this use the given allocator?
+    imaging::image image_;
 };
 
 } // namespace aeon::engine::resources

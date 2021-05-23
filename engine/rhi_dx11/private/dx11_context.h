@@ -24,7 +24,7 @@ public:
     auto operator=(dx11_context &&) noexcept -> dx11_context & = delete;
 
     void set_vertex_buffer(vertex_buffer &buffer, const std::uint32_t stride, const std::uint32_t offset, const std::uint32_t slot) final;
-    void set_index_buffer(index_buffer &buffer, const common::format format, const std::uint32_t offset) final;
+    void set_index_buffer(index_buffer &buffer, const imaging::format format, const std::uint32_t offset) final;
 
     void set_shader_resource_view(graphics_shader &shader, const std::uint32_t index, shader_resource_view *view) final;
     void set_shader_constant_buffer(graphics_shader &shader, const std::uint32_t index, constant_buffer *buffer) final;

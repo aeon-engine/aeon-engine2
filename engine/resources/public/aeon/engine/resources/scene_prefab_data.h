@@ -26,7 +26,7 @@ public:
 
     [[nodiscard]] auto root() const noexcept -> const scene_node_data &;
 
-    [[nodiscard]] auto dependencies() const noexcept -> std::pmr::set<resource_id> final;
+    [[nodiscard]] auto dependencies() const noexcept -> std::set<resource_id> final;
 
 private:
     aeon::common::pmr::unique_ptr<scene_node_data> root_;

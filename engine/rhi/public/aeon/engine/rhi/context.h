@@ -9,7 +9,7 @@
 #include <aeon/engine/rhi/viewport.h>
 #include <aeon/engine/rhi/texture.h>
 #include <aeon/engine/rhi/sampler_state.h>
-#include <aeon/engine/common/format.h>
+#include <aeon/imaging/format.h>
 #include <cstdint>
 
 namespace aeon::engine::rhi
@@ -36,7 +36,7 @@ public:
     auto operator=(context &&) noexcept -> context & = delete;
 
     virtual void set_vertex_buffer(vertex_buffer &buffer, const std::uint32_t stride, const std::uint32_t offset = 0, const std::uint32_t slot = 0) = 0;
-    virtual void set_index_buffer(index_buffer &buffer, const common::format format = common::format::r32_uint, const std::uint32_t offset = 0) = 0;
+    virtual void set_index_buffer(index_buffer &buffer, const imaging::format format = imaging::format::r32_uint, const std::uint32_t offset = 0) = 0;
 
     virtual void set_shader_resource_view(graphics_shader &shader, const std::uint32_t index, shader_resource_view *view) = 0;
     virtual void set_shader_constant_buffer(graphics_shader &shader, const std::uint32_t index, constant_buffer *buffer) = 0;

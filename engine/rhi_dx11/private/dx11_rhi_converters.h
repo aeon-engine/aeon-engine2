@@ -8,8 +8,7 @@
 #include <aeon/engine/rhi/primitive_topology.h>
 #include <aeon/engine/rhi/depth_stencil_state.h>
 #include <aeon/engine/rhi/wrap_mode.h>
-#include <aeon/engine/common/filter_type.h>
-#include <aeon/engine/common/format.h>
+#include <aeon/engine/core/types/filter_type.h>
 #include <d3d11.h>
 
 namespace aeon::engine::rhi::dx11
@@ -143,333 +142,126 @@ namespace aeon::engine::rhi::dx11
     }
 }
 
-[[nodiscard]] inline auto convert_filter_type(const common::filter_type mode) noexcept
+[[nodiscard]] inline auto convert_filter_type(const core::types::filter_type mode) noexcept
 {
     switch (mode)
     {
-        case common::filter_type::min_mag_mip_point:
+        case core::types::filter_type::min_mag_mip_point:
             return D3D11_FILTER_MIN_MAG_MIP_POINT;
-        case common::filter_type::min_mag_point_mip_linear:
+        case core::types::filter_type::min_mag_point_mip_linear:
             return D3D11_FILTER_MIN_MAG_POINT_MIP_LINEAR;
-        case common::filter_type::min_point_mag_linear_mip_point:
+        case core::types::filter_type::min_point_mag_linear_mip_point:
             return D3D11_FILTER_MIN_POINT_MAG_LINEAR_MIP_POINT;
-        case common::filter_type::min_point_mag_mip_linear:
+        case core::types::filter_type::min_point_mag_mip_linear:
             return D3D11_FILTER_MIN_POINT_MAG_MIP_LINEAR;
-        case common::filter_type::min_linear_mag_mip_point:
+        case core::types::filter_type::min_linear_mag_mip_point:
             return D3D11_FILTER_MIN_LINEAR_MAG_MIP_POINT;
-        case common::filter_type::min_linear_mag_point_mip_linear:
+        case core::types::filter_type::min_linear_mag_point_mip_linear:
             return D3D11_FILTER_MIN_LINEAR_MAG_POINT_MIP_LINEAR;
-        case common::filter_type::min_mag_linear_mip_point:
+        case core::types::filter_type::min_mag_linear_mip_point:
             return D3D11_FILTER_MIN_MAG_LINEAR_MIP_POINT;
-        case common::filter_type::min_mag_mip_linear:
+        case core::types::filter_type::min_mag_mip_linear:
             return D3D11_FILTER_MIN_MAG_MIP_LINEAR;
-        case common::filter_type::anisotropic:
+        case core::types::filter_type::anisotropic:
             return D3D11_FILTER_ANISOTROPIC;
-        case common::filter_type::comparison_min_mag_mip_point:
+        case core::types::filter_type::comparison_min_mag_mip_point:
             return D3D11_FILTER_COMPARISON_MIN_MAG_MIP_POINT;
-        case common::filter_type::comparison_min_mag_point_mip_linear:
+        case core::types::filter_type::comparison_min_mag_point_mip_linear:
             return D3D11_FILTER_COMPARISON_MIN_MAG_POINT_MIP_LINEAR;
-        case common::filter_type::comparison_min_point_mag_linear_mip_point:
+        case core::types::filter_type::comparison_min_point_mag_linear_mip_point:
             return D3D11_FILTER_COMPARISON_MIN_POINT_MAG_LINEAR_MIP_POINT;
-        case common::filter_type::comparison_min_point_mag_mip_linear:
+        case core::types::filter_type::comparison_min_point_mag_mip_linear:
             return D3D11_FILTER_COMPARISON_MIN_POINT_MAG_MIP_LINEAR;
-        case common::filter_type::comparison_min_linear_mag_mip_point:
+        case core::types::filter_type::comparison_min_linear_mag_mip_point:
             return D3D11_FILTER_COMPARISON_MIN_LINEAR_MAG_MIP_POINT;
-        case common::filter_type::comparison_min_linear_mag_point_mip_linear:
+        case core::types::filter_type::comparison_min_linear_mag_point_mip_linear:
             return D3D11_FILTER_COMPARISON_MIN_LINEAR_MAG_POINT_MIP_LINEAR;
-        case common::filter_type::comparison_min_mag_linear_mip_point:
+        case core::types::filter_type::comparison_min_mag_linear_mip_point:
             return D3D11_FILTER_COMPARISON_MIN_MAG_LINEAR_MIP_POINT;
-        case common::filter_type::comparison_min_mag_mip_linear:
+        case core::types::filter_type::comparison_min_mag_mip_linear:
             return D3D11_FILTER_COMPARISON_MIN_MAG_MIP_LINEAR;
-        case common::filter_type::comparison_anisotropic:
+        case core::types::filter_type::comparison_anisotropic:
             return D3D11_FILTER_COMPARISON_ANISOTROPIC;
-        case common::filter_type::minimum_min_mag_mip_point:
+        case core::types::filter_type::minimum_min_mag_mip_point:
             return D3D11_FILTER_MINIMUM_MIN_MAG_MIP_POINT;
-        case common::filter_type::minimum_min_mag_point_mip_linear:
+        case core::types::filter_type::minimum_min_mag_point_mip_linear:
             return D3D11_FILTER_MINIMUM_MIN_MAG_POINT_MIP_LINEAR;
-        case common::filter_type::minimum_min_point_mag_linear_mip_point:
+        case core::types::filter_type::minimum_min_point_mag_linear_mip_point:
             return D3D11_FILTER_MINIMUM_MIN_POINT_MAG_LINEAR_MIP_POINT;
-        case common::filter_type::minimum_min_point_mag_mip_linear:
+        case core::types::filter_type::minimum_min_point_mag_mip_linear:
             return D3D11_FILTER_MINIMUM_MIN_POINT_MAG_MIP_LINEAR;
-        case common::filter_type::minimum_min_linear_mag_mip_point:
+        case core::types::filter_type::minimum_min_linear_mag_mip_point:
             return D3D11_FILTER_MINIMUM_MIN_LINEAR_MAG_MIP_POINT;
-        case common::filter_type::minimum_min_linear_mag_point_mip_linear:
+        case core::types::filter_type::minimum_min_linear_mag_point_mip_linear:
             return D3D11_FILTER_MINIMUM_MIN_LINEAR_MAG_POINT_MIP_LINEAR;
-        case common::filter_type::minimum_min_mag_linear_mip_point:
+        case core::types::filter_type::minimum_min_mag_linear_mip_point:
             return D3D11_FILTER_MINIMUM_MIN_MAG_LINEAR_MIP_POINT;
-        case common::filter_type::minimum_min_mag_mip_linear:
+        case core::types::filter_type::minimum_min_mag_mip_linear:
             return D3D11_FILTER_MINIMUM_MIN_MAG_MIP_LINEAR;
-        case common::filter_type::minimum_anisotropic:
+        case core::types::filter_type::minimum_anisotropic:
             return D3D11_FILTER_MINIMUM_ANISOTROPIC;
-        case common::filter_type::maximum_min_mag_mip_point:
+        case core::types::filter_type::maximum_min_mag_mip_point:
             return D3D11_FILTER_MAXIMUM_MIN_MAG_MIP_POINT;
-        case common::filter_type::maximum_min_mag_point_mip_linear:
+        case core::types::filter_type::maximum_min_mag_point_mip_linear:
             return D3D11_FILTER_MAXIMUM_MIN_MAG_POINT_MIP_LINEAR;
-        case common::filter_type::maximum_min_point_mag_linear_mip_point:
+        case core::types::filter_type::maximum_min_point_mag_linear_mip_point:
             return D3D11_FILTER_MAXIMUM_MIN_POINT_MAG_LINEAR_MIP_POINT;
-        case common::filter_type::maximum_min_point_mag_mip_linear:
+        case core::types::filter_type::maximum_min_point_mag_mip_linear:
             return D3D11_FILTER_MAXIMUM_MIN_POINT_MAG_MIP_LINEAR;
-        case common::filter_type::maximum_min_linear_mag_mip_point:
+        case core::types::filter_type::maximum_min_linear_mag_mip_point:
             return D3D11_FILTER_MAXIMUM_MIN_LINEAR_MAG_MIP_POINT;
-        case common::filter_type::maximum_min_linear_mag_point_mip_linear:
+        case core::types::filter_type::maximum_min_linear_mag_point_mip_linear:
             return D3D11_FILTER_MAXIMUM_MIN_LINEAR_MAG_POINT_MIP_LINEAR;
-        case common::filter_type::maximum_min_mag_linear_mip_point:
+        case core::types::filter_type::maximum_min_mag_linear_mip_point:
             return D3D11_FILTER_MAXIMUM_MIN_MAG_LINEAR_MIP_POINT;
-        case common::filter_type::maximum_min_mag_mip_linear:
+        case core::types::filter_type::maximum_min_mag_mip_linear:
             return D3D11_FILTER_MAXIMUM_MIN_MAG_MIP_LINEAR;
-        case common::filter_type::maximum_anisotropic:
+        case core::types::filter_type::maximum_anisotropic:
             return D3D11_FILTER_MAXIMUM_ANISOTROPIC;
         default:
             std::abort();
     }
 }
 
-[[nodiscard]] inline auto convert_format(const common::format format) noexcept
+[[nodiscard]] inline auto convert_format(const imaging::format format) noexcept
 {
     switch (format)
     {
-        case common::format::unknown:
+        case imaging::format::undefined:
             return DXGI_FORMAT_UNKNOWN;
-        case common::format::r32g32b32a32_typeless:
-            return DXGI_FORMAT_R32G32B32A32_TYPELESS;
-        case common::format::r32g32b32a32_float:
-            return DXGI_FORMAT_R32G32B32A32_FLOAT;
-        case common::format::r32g32b32a32_uint:
-            return DXGI_FORMAT_R32G32B32A32_UINT;
-        case common::format::r32g32b32a32_sint:
-            return DXGI_FORMAT_R32G32B32A32_SINT;
-        case common::format::r32g32b32_typeless:
-            return DXGI_FORMAT_R32G32B32_TYPELESS;
-        case common::format::r32g32b32_float:
-            return DXGI_FORMAT_R32G32B32_FLOAT;
-        case common::format::r32g32b32_uint:
-            return DXGI_FORMAT_R32G32B32_UINT;
-        case common::format::r32g32b32_sint:
-            return DXGI_FORMAT_R32G32B32_SINT;
-        case common::format::r16g16b16a16_typeless:
-            return DXGI_FORMAT_R16G16B16A16_TYPELESS;
-        case common::format::r16g16b16a16_float:
-            return DXGI_FORMAT_R16G16B16A16_FLOAT;
-        case common::format::r16g16b16a16_unorm:
-            return DXGI_FORMAT_R16G16B16A16_UNORM;
-        case common::format::r16g16b16a16_uint:
-            return DXGI_FORMAT_R16G16B16A16_UINT;
-        case common::format::r16g16b16a16_snorm:
-            return DXGI_FORMAT_R16G16B16A16_SNORM;
-        case common::format::r16g16b16a16_sint:
-            return DXGI_FORMAT_R16G16B16A16_SINT;
-        case common::format::r32g32_typeless:
-            return DXGI_FORMAT_R32G32_TYPELESS;
-        case common::format::r32g32_float:
-            return DXGI_FORMAT_R32G32_FLOAT;
-        case common::format::r32g32_uint:
-            return DXGI_FORMAT_R32G32_UINT;
-        case common::format::r32g32_sint:
-            return DXGI_FORMAT_R32G32_SINT;
-        case common::format::r32g8x24_typeless:
-            return DXGI_FORMAT_R32G8X24_TYPELESS;
-        case common::format::d32_float_s8x24_uint:
-            return DXGI_FORMAT_D32_FLOAT_S8X24_UINT;
-        case common::format::r32_float_x8x24_typeless:
-            return DXGI_FORMAT_R32_FLOAT_X8X24_TYPELESS;
-        case common::format::x32_typeless_g8x24_uint:
-            return DXGI_FORMAT_X32_TYPELESS_G8X24_UINT;
-        case common::format::r10g10b10a2_typeless:
-            return DXGI_FORMAT_R10G10B10A2_TYPELESS;
-        case common::format::r10g10b10a2_unorm:
-            return DXGI_FORMAT_R10G10B10A2_UNORM;
-        case common::format::r10g10b10a2_uint:
-            return DXGI_FORMAT_R10G10B10A2_UINT;
-        case common::format::r11g11b10_float:
-            return DXGI_FORMAT_R11G11B10_FLOAT;
-        case common::format::r8g8b8a8_typeless:
-            return DXGI_FORMAT_R8G8B8A8_TYPELESS;
-        case common::format::r8g8b8a8_unorm:
-            return DXGI_FORMAT_R8G8B8A8_UNORM;
-        case common::format::r8g8b8a8_unorm_srgb:
-            return DXGI_FORMAT_R8G8B8A8_UNORM_SRGB;
-        case common::format::r8g8b8a8_uint:
-            return DXGI_FORMAT_R8G8B8A8_UINT;
-        case common::format::r8g8b8a8_snorm:
-            return DXGI_FORMAT_R8G8B8A8_SNORM;
-        case common::format::r8g8b8a8_sint:
-            return DXGI_FORMAT_R8G8B8A8_SINT;
-        case common::format::r16g16_typeless:
-            return DXGI_FORMAT_R16G16_TYPELESS;
-        case common::format::r16g16_float:
-            return DXGI_FORMAT_R16G16_FLOAT;
-        case common::format::r16g16_unorm:
-            return DXGI_FORMAT_R16G16_UNORM;
-        case common::format::r16g16_uint:
-            return DXGI_FORMAT_R16G16_UINT;
-        case common::format::r16g16_snorm:
-            return DXGI_FORMAT_R16G16_SNORM;
-        case common::format::r16g16_sint:
-            return DXGI_FORMAT_R16G16_SINT;
-        case common::format::r32_typeless:
-            return DXGI_FORMAT_R32_TYPELESS;
-        case common::format::d32_float:
-            return DXGI_FORMAT_D32_FLOAT;
-        case common::format::r32_float:
-            return DXGI_FORMAT_R32_FLOAT;
-        case common::format::r32_uint:
-            return DXGI_FORMAT_R32_UINT;
-        case common::format::r32_sint:
-            return DXGI_FORMAT_R32_SINT;
-        case common::format::r24g8_typeless:
-            return DXGI_FORMAT_R24G8_TYPELESS;
-        case common::format::d24_unorm_s8_uint:
-            return DXGI_FORMAT_D24_UNORM_S8_UINT;
-        case common::format::r24_unorm_x8_typeless:
-            return DXGI_FORMAT_R24_UNORM_X8_TYPELESS;
-        case common::format::x24_typeless_g8_uint:
-            return DXGI_FORMAT_X24_TYPELESS_G8_UINT;
-        case common::format::r8g8_typeless:
-            return DXGI_FORMAT_R8G8_TYPELESS;
-        case common::format::r8g8_unorm:
-            return DXGI_FORMAT_R8G8_UNORM;
-        case common::format::r8g8_uint:
-            return DXGI_FORMAT_R8G8_UINT;
-        case common::format::r8g8_snorm:
-            return DXGI_FORMAT_R8G8_SNORM;
-        case common::format::r8g8_sint:
-            return DXGI_FORMAT_R8G8_SINT;
-        case common::format::r16_typeless:
-            return DXGI_FORMAT_R16_TYPELESS;
-        case common::format::r16_float:
-            return DXGI_FORMAT_R16_FLOAT;
-        case common::format::d16_unorm:
-            return DXGI_FORMAT_D16_UNORM;
-        case common::format::r16_unorm:
-            return DXGI_FORMAT_R16_UNORM;
-        case common::format::r16_uint:
-            return DXGI_FORMAT_R16_UINT;
-        case common::format::r16_snorm:
-            return DXGI_FORMAT_R16_SNORM;
-        case common::format::r16_sint:
-            return DXGI_FORMAT_R16_SINT;
-        case common::format::r8_typeless:
-            return DXGI_FORMAT_R8_TYPELESS;
-        case common::format::r8_unorm:
-            return DXGI_FORMAT_R8_UNORM;
-        case common::format::r8_uint:
-            return DXGI_FORMAT_R8_UINT;
-        case common::format::r8_snorm:
-            return DXGI_FORMAT_R8_SNORM;
-        case common::format::r8_sint:
-            return DXGI_FORMAT_R8_SINT;
-        case common::format::a8_unorm:
-            return DXGI_FORMAT_A8_UNORM;
-        case common::format::r1_unorm:
-            return DXGI_FORMAT_R1_UNORM;
-        case common::format::r9g9b9e5_sharedexp:
-            return DXGI_FORMAT_R9G9B9E5_SHAREDEXP;
-        case common::format::r8g8_b8g8_unorm:
-            return DXGI_FORMAT_R8G8_B8G8_UNORM;
-        case common::format::g8r8_g8b8_unorm:
-            return DXGI_FORMAT_G8R8_G8B8_UNORM;
-        case common::format::bc1_typeless:
-            return DXGI_FORMAT_BC1_TYPELESS;
-        case common::format::bc1_unorm:
-            return DXGI_FORMAT_BC1_UNORM;
-        case common::format::bc1_unorm_srgb:
-            return DXGI_FORMAT_BC1_UNORM_SRGB;
-        case common::format::bc2_typeless:
-            return DXGI_FORMAT_BC2_TYPELESS;
-        case common::format::bc2_unorm:
-            return DXGI_FORMAT_BC2_UNORM;
-        case common::format::bc2_unorm_srgb:
-            return DXGI_FORMAT_BC2_UNORM_SRGB;
-        case common::format::bc3_typeless:
-            return DXGI_FORMAT_BC3_TYPELESS;
-        case common::format::bc3_unorm:
-            return DXGI_FORMAT_BC3_UNORM;
-        case common::format::bc3_unorm_srgb:
-            return DXGI_FORMAT_BC3_UNORM_SRGB;
-        case common::format::bc4_typeless:
-            return DXGI_FORMAT_BC4_TYPELESS;
-        case common::format::bc4_unorm:
-            return DXGI_FORMAT_BC4_UNORM;
-        case common::format::bc4_snorm:
-            return DXGI_FORMAT_BC4_SNORM;
-        case common::format::bc5_typeless:
-            return DXGI_FORMAT_BC5_TYPELESS;
-        case common::format::bc5_unorm:
-            return DXGI_FORMAT_BC5_UNORM;
-        case common::format::bc5_snorm:
-            return DXGI_FORMAT_BC5_SNORM;
-        case common::format::b5g6r5_unorm:
-            return DXGI_FORMAT_B5G6R5_UNORM;
-        case common::format::b5g5r5a1_unorm:
-            return DXGI_FORMAT_B5G5R5A1_UNORM;
-        case common::format::b8g8r8a8_unorm:
+        case imaging::format::b8g8r8a8_uint:
             return DXGI_FORMAT_B8G8R8A8_UNORM;
-        case common::format::b8g8r8x8_unorm:
-            return DXGI_FORMAT_B8G8R8X8_UNORM;
-        case common::format::r10g10b10_xr_bias_a2_unorm:
-            return DXGI_FORMAT_R10G10B10_XR_BIAS_A2_UNORM;
-        case common::format::b8g8r8a8_typeless:
-            return DXGI_FORMAT_B8G8R8A8_TYPELESS;
-        case common::format::b8g8r8a8_unorm_srgb:
-            return DXGI_FORMAT_B8G8R8A8_UNORM_SRGB;
-        case common::format::b8g8r8x8_typeless:
-            return DXGI_FORMAT_B8G8R8X8_TYPELESS;
-        case common::format::b8g8r8x8_unorm_srgb:
-            return DXGI_FORMAT_B8G8R8X8_UNORM_SRGB;
-        case common::format::bc6h_typeless:
-            return DXGI_FORMAT_BC6H_TYPELESS;
-        case common::format::bc6h_uf16:
-            return DXGI_FORMAT_BC6H_UF16;
-        case common::format::bc6h_sf16:
-            return DXGI_FORMAT_BC6H_SF16;
-        case common::format::bc7_typeless:
-            return DXGI_FORMAT_BC7_TYPELESS;
-        case common::format::bc7_unorm:
-            return DXGI_FORMAT_BC7_UNORM;
-        case common::format::bc7_unorm_srgb:
-            return DXGI_FORMAT_BC7_UNORM_SRGB;
-        case common::format::ayuv:
-            return DXGI_FORMAT_AYUV;
-        case common::format::y410:
-            return DXGI_FORMAT_Y410;
-        case common::format::y416:
-            return DXGI_FORMAT_Y416;
-        case common::format::nv12:
-            return DXGI_FORMAT_NV12;
-        case common::format::p010:
-            return DXGI_FORMAT_P010;
-        case common::format::p016:
-            return DXGI_FORMAT_P016;
-        case common::format::yuv420_opaque:
-            return DXGI_FORMAT_420_OPAQUE;
-        case common::format::yuy2:
-            return DXGI_FORMAT_YUY2;
-        case common::format::y210:
-            return DXGI_FORMAT_Y210;
-        case common::format::y216:
-            return DXGI_FORMAT_Y216;
-        case common::format::nv11:
-            return DXGI_FORMAT_NV11;
-        case common::format::ai44:
-            return DXGI_FORMAT_AI44;
-        case common::format::ia44:
-            return DXGI_FORMAT_IA44;
-        case common::format::p8:
-            return DXGI_FORMAT_P8;
-        case common::format::a8p8:
-            return DXGI_FORMAT_A8P8;
-        case common::format::b4g4r4a4_unorm:
-            return DXGI_FORMAT_B4G4R4A4_UNORM;
-        case common::format::p208:
-            return DXGI_FORMAT_P208;
-        case common::format::v208:
-            return DXGI_FORMAT_V208;
-        case common::format::v408:
-            return DXGI_FORMAT_V408;
-        case common::format::sampler_feedback_min_mip_opaque:
-            return DXGI_FORMAT_SAMPLER_FEEDBACK_MIN_MIP_OPAQUE;
-        case common::format::sampler_feedback_mip_region_used_opaque:
-            return DXGI_FORMAT_SAMPLER_FEEDBACK_MIP_REGION_USED_OPAQUE;
+        case imaging::format::bc1_rgba_srgb_block:
+            return DXGI_FORMAT_BC1_UNORM_SRGB;
+        case imaging::format::bc2_srgb_block:
+            return DXGI_FORMAT_BC2_UNORM_SRGB;
+        case imaging::format::bc3_srgb_block:
+            return DXGI_FORMAT_BC3_UNORM_SRGB;
+        case imaging::format::r32_float:
+            return DXGI_FORMAT_R32_FLOAT;
+        case imaging::format::r32_uint:
+            return DXGI_FORMAT_R32_UINT;
+        case imaging::format::r32g32_float:
+            return DXGI_FORMAT_R32G32_FLOAT;
+        case imaging::format::r32g32_uint:
+            return DXGI_FORMAT_R32G32_UINT;
+        case imaging::format::r32g32b32_float:
+            return DXGI_FORMAT_R32G32B32_FLOAT;
+        case imaging::format::r32g32b32_uint:
+            return DXGI_FORMAT_R32G32B32_UINT;
+        case imaging::format::r32g32b32a32_float:
+            return DXGI_FORMAT_R32G32B32A32_FLOAT;
+        case imaging::format::r32g32b32a32_uint:
+            return DXGI_FORMAT_R32G32B32A32_UINT;
+        case imaging::format::r8_uint:
+            return DXGI_FORMAT_R8_UNORM;
+        case imaging::format::r8g8_uint:
+            return DXGI_FORMAT_R8G8_UNORM;
+        case imaging::format::r8g8b8a8_uint:
+            return DXGI_FORMAT_R8G8B8A8_UNORM;
+        case imaging::format::r8g8b8_uint:
+        case imaging::format::b8g8r8_uint:
+        case imaging::format::bc1_rgb_srgb_block:
         default:
             std::abort();
     }

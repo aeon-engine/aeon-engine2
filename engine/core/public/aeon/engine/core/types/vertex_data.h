@@ -5,7 +5,7 @@
 #include <aeon/math/vector3.h>
 #include <aeon/math/vector2.h>
 
-namespace aeon::engine::common
+namespace aeon::engine::core::types
 {
 
 struct vertex_data
@@ -17,4 +17,4 @@ struct vertex_data
     math::vector3<float> bitangent;
 };
 
-} // namespace aeon::engine::common
+} // namespace aeon::engine::core::types

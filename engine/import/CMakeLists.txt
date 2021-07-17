@@ -43,7 +43,7 @@ target_link_libraries(aeon_engine_import
     PRIVATE
         aeon_common
         aeon_imaging
-        assimp::assimp
+        CONAN_PKG::assimp
 )
 
 install(

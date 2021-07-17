@@ -11,13 +11,20 @@ endif ()
 # Don't allow any circular dependencies. Not even for static libraries.
 set_property(GLOBAL PROPERTY GLOBAL_DEPENDS_NO_CYCLES 1)
 
-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/dep/cmake/;${CMAKE_MODULE_PATH}")
-
-include(Dependencies)
-handle_local_dependencies_file()
-handle_dependencies_file("${CMAKE_SOURCE_DIR}/dep/libaeon/dependencies.txt")
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/dep/cmake/")
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_BINARY_DIR}")
 
 include(CompilerFlags)
+
+if (EXISTS ${CMAKE_BINARY_DIR}/conanbuildinfo_multi.cmake)
+    message("Using multi-target conan configuration.")
+    include(conanbuildinfo_multi)
+else ()
+    message("Using single target conan configuration.")
+    include(conanbuildinfo)
+endif ()
+
+conan_basic_setup(TARGETS)
 
 if (MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4251")
@@ -37,8 +44,6 @@ enable_component(imaging)
 enable_component(math)
 enable_component(plugins)
 enable_component(streams)
-enable_component(gl)
-enable_component(gl_utils)
 enable_component(platform)
 
 set(AEON_ENABLE_TESTING ON CACHE BOOL "")
